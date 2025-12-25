@@ -1,0 +1,68 @@
+import random
+import string
+
+bot_name = "Vayun AI Bot"
+
+# Show chatbot instructions when the bot starts
+def show_instructions():
+    print("🤖 AI CHATBOT INSTRUCTIONS 🤖")
+    print("- You can greet me (hi/hello/hey)")
+    print("- You can ask my name")
+    print("- You can ask how I am")
+    print("- You can ask for a random number")
+    print("- Type 'bye', 'exit', or 'quit' to stop chatting")
+    print("- I respond using simple NLP-like keyword understanding\n")
+
+greeting_keywords = ["hello", "hi", "hey", "good morning", "good evening"]
+greeting_responses = ["Hello!", "Hi there!", "Hey! How can I help?", "Greetings!"]
+
+def chatbot_reply(user_input):
+    message = user_input.lower()
+
+    # Greeting check
+    for word in greeting_keywords:
+        if word in message:
+            return random.choice(greeting_responses)
+
+    # Identity questions
+    if "your name" in message or "who are you" in message:
+        return f"I'm {bot_name}, your AI chatbot powered by Python!"
+
+    # Wellbeing questions
+    if "how are you" in message:
+        return "I'm a bot, so I don't have feelings, but I'm working flawlessly!"
+
+    # Random number request
+    if "number" in message or "random" in message:
+        rand_num = random.randint(1, 200)
+        return f"Here’s a random number for you: {rand_num}"
+
+    # Password-related fun response (since string module is imported)
+    if "password" in message:
+        sample_pw = ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(8))
+        return f"Need password inspiration? Here’s one: {sample_pw}"
+
+    # Exit check
+    if message in ["bye", "exit", "quit"]:
+        return "Goodbye! Have an awesome day!"
+
+    # Fallback responses
+    return random.choice([
+        "That’s fascinating!",
+        "Can you explain more?",
+        "Hmm, let me think...",
+        "I’m still learning, but go on!"
+    ])
+
+# Main chatbot loop
+show_instructions()
+
+print(f"{bot_name} is now active! Let’s chat!\n")
+
+while True:
+    user_message = input("You: ")
+    response = chatbot_reply(user_message)
+    print("Bot:", response)
+
+    if response.lower().startswith("goodbye"):
+        break

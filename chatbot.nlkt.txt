@@ -1,0 +1,46 @@
+import random
+import nltk
+from nltk.tokenize import word_tokenize
+
+# Reply logic for chatbot
+def chatbot_reply(user_input):
+    tokens = word_tokenize(user_input.lower())
+
+    greeting_keywords = ["hello", "hi", "hey", "good morning", "good evening"]
+    greeting_responses = ["Hello!", "Hi there!", "Hey! How can I assist?", "Greetings!"]
+
+    # Greeting check
+    for word in greeting_keywords:
+        if word in user_input.lower():
+            return random.choice(greeting_responses)
+
+    # Name question check
+    if "your" in tokens and "name" in tokens:
+        return "I'm Vayun AI Bot, your NLP-powered chatbot!"
+
+    # Wellbeing question check
+    if "how" in tokens and "you" in tokens:
+        return "I'm just a Python bot, but I'm running great!"
+
+    # Exit condition
+    if "bye" in tokens or "exit" in tokens or "quit" in tokens:
+        return "Goodbye! Keep learning and keep coding!"
+
+    # Fallback
+    return random.choice([
+        "That sounds interesting!",
+        "Could you explain more?",
+        "Hmm, let me think about that...",
+        "I'm still learning, but go on!"
+    ])
+
+# Main chat loop
+print("\n🤖 Vayun AI Bot Activated! (Type 'bye' to exit)\n")
+
+while True:
+    user_message = input("You: ")
+    response = chatbot_reply(user_message)
+    print("Bot:", response)
+
+    if response.lower().startswith("goodbye"):
+        break
